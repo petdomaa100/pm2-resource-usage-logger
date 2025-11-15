@@ -1,0 +1,20 @@
+{
+	"compilerOptions": {
+		// Environment setup
+		"target": "es2015",
+		"module": "commonjs",
+		"moduleResolution": "node",
+
+		// Bundler mode
+		"noEmit": true,
+		"allowJs": true,
+		"checkJs": true,
+		"esModuleInterop": true,
+
+		// Best practices
+		"strict": true,
+		"skipLibCheck": true,
+		"noUncheckedIndexedAccess": true
+	},
+	"exclude": ["node_modules"]
+}

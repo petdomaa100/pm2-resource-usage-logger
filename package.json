@@ -1,0 +1,40 @@
+{
+	"name": "pm2-resource-usage-logger",
+	"version": "0.0.1",
+	"license": "MIT",
+	"main": "app.js",
+	"scripts": {
+		"typecheck": "tsc"
+	},
+	"dependencies": {
+		"pm2": "^6.0.11",
+		"pmx": "beta"
+	},
+	"devDependencies": {
+		"@types/node": "^24.10.1",
+		"typescript": "^5.9.3"
+	},
+	"config": {
+		"csv_columns": [
+			"name",
+			"pid",
+			"pm_id",
+			"memory",
+			"cpu",
+			"pm_uptime",
+			"status",
+			"restart_time",
+			"unstable_restarts",
+			"instances"
+		],
+		"interval_ms": 5000,
+		"output_csv_path": "./pm2-resource-usage-logs.csv"
+	},
+	"apps": [
+		{
+			"merge_logs": true,
+			"max_memory_restart": "200M",
+			"script": "app.js"
+		}
+	]
+}
