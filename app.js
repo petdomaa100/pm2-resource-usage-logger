@@ -55,22 +55,29 @@ function logResourceUsage(processes, config, selfPmId) {
 
 /**
  * @param {unknown} csv_columns
- * @returns {csv_columns is CsvColumn[]}
+ * @returns {CsvColumn[] | null}
  */
-function areSpecifiedCsvColumnsValid(csv_columns) {
-	if (!Array.isArray(csv_columns) || csv_columns.length === 0) {
-		console.error('Specified \'csv_columns\' is invalid, it must be a string array of length >= 1');
-		return false;
+function parseCsvColumns(csv_columns) {
+	if (typeof csv_columns !== 'string') {
+		console.error('Specified \'csv_columns\' is invalid, it must be a string of comma separated values');
+		return null;
 	}
 
-	for (const col of csv_columns) {
-		if (!(col in COLUMN_GETTERS)) {
+	/** @type {CsvColumn[]} */
+	const parsed = [];
+
+	for (const col of csv_columns.split(',')) {
+		const trimmed = col.trim();
+
+		if (trimmed in COLUMN_GETTERS) {
+			parsed.push(/** @type {CsvColumn} */ (trimmed));
+		} else {
 			console.error(`Column '${col}' is not a valid column, see the README for all the valid columns`);
-			return false;
+			return null;
 		}
 	}
 
-	return true;
+	return parsed;
 }
 
 pmx.initModule({}, (err, conf) => {
@@ -80,8 +87,9 @@ pmx.initModule({}, (err, conf) => {
 	}
 
 	const { module_conf } = conf;
+	const csvColumns = parseCsvColumns(module_conf.csv_columns);
 
-	if (!areSpecifiedCsvColumnsValid(module_conf.csv_columns)) {
+	if (!csvColumns) {
 		return;
 	}
 
@@ -112,9 +120,9 @@ pmx.initModule({}, (err, conf) => {
 	/** @type {Config} */
 	const config = {
 		excludeSelf: module_conf.exclude_self,
-		csvColumns: module_conf.csv_columns,
 		intervalMs: module_conf.interval_ms,
 		csvPath: path.resolve(module_conf.output_csv_path),
+		csvColumns,
 	};
 
 	console.log('Started PM2 Resource Usage Logger with config:');

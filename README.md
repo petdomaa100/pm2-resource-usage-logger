@@ -4,13 +4,17 @@ A PM2 module that logs the resource usage of running processes to a CSV file.
 
 ## Configuration
 
-`interval_ms` (number, required): The interval in milliseconds between resource usage logs. (Defaults to `5000`)
+- `interval_ms` (number, required): The interval in milliseconds between resource usage logs. \
+(Defaults to `5000`)
 
-`output_csv_path` (string, required): Absolute or relative path to the output CSV file. (Defaults to `./pm2-resource-usage-logs.csv`)
+- `output_csv_path` (string, required): Absolute or relative path to the output CSV file. \
+(Defaults to `./pm2-resource-usage-logs.csv`)
 
-`csv_columns` (string[], required): Array of column names to include in the CSV.
+- `csv_columns` (string[], required): Array of column names to include in the CSV. \
+(Defaults to all the available columns)
 
-`exclude_self` (boolean, optional): Whether to exclude the module itself from the logs. (Defaults to `false`)
+- `exclude_self` (boolean, optional): Whether to exclude the module itself from the logs. \
+(Defaults to `false`)
 
 ### Available Columns
 
@@ -31,24 +35,15 @@ The following columns can be specified in the `csv_columns` configuration option
 
 ### Example Configuration
 
-```jsonc
-{
-  "csv_columns": [
-    "name",
-    "pid",
-    "pm_id",
-    "memory",
-    "cpu",
-    "pm_uptime",
-    "status",
-    "restart_time",
-    "unstable_restarts",
-    "instances"
-  ],
-  "interval_ms": 5000,
-  "output_csv_path": "/home/user/project/out.csv" // Should be an absolute path
-}
+```bash
+pm2 set pm2-resource-usage-logger:csv_columns "name,pid,pm_id,memory,cpu,pm_uptime,status,restart_time,unstable_restarts,instances"
+
+pm2 set pm2-resource-usage-logger:interval_ms 5000
+
+pm2 set pm2-resource-usage-logger:output_csv_path ./out.csv
 ```
+
+Further reading: https://pm2.keymetrics.io/docs/advanced/pm2-module-system
 
 ## CSV Output
 

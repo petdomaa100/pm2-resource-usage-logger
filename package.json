@@ -15,18 +15,7 @@
 		"typescript": "^5.9.3"
 	},
 	"config": {
-		"csv_columns": [
-			"name",
-			"pid",
-			"pm_id",
-			"memory",
-			"cpu",
-			"pm_uptime",
-			"status",
-			"restart_time",
-			"unstable_restarts",
-			"instances"
-		],
+		"csv_columns": "name,pid,pm_id,memory,cpu,pm_uptime,status,restart_time,unstable_restarts,instances",
 		"interval_ms": 5000,
 		"output_csv_path": "./pm2-resource-usage-logs.csv",
 		"exclude_self": false
