@@ -28,7 +28,8 @@
 			"instances"
 		],
 		"interval_ms": 5000,
-		"output_csv_path": "./pm2-resource-usage-logs.csv"
+		"output_csv_path": "./pm2-resource-usage-logs.csv",
+		"exclude_self": false
 	},
 	"apps": [
 		{
