@@ -2,6 +2,10 @@
 
 A PM2 module that logs the resource usage of running processes to a CSV file.
 
+## Installation
+
+This is currently not published as an NPM packange. To install it, clone the repository, and run `pm2 install .` in the root directory.
+
 ## Configuration
 
 - `interval_ms` (number, required): The interval in milliseconds between resource usage logs. \
